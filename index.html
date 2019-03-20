@@ -74,18 +74,34 @@ $(document).ready(function() {
     //     table.draw();
     // } );
 
-    var results = [];
+    var contents = [];
     var url = "https://sheets.googleapis.com/v4/spreadsheets/1yvDRolgGqLFc69NfjvKQVW3aMPReZP9dsTrDzSo1EME/values/Sheet1?key=AIzaSyBxZfUkSmOygqpFF1qEv433kFTacotpJV4";
     
     var jqxhr = $.getJSON(url, function() {
         console.log( "successfully read url" );
     })
     .done(function(data) {
+
         console.log( "second success" );
-        console.log(data.values);
         var table = $('#example').DataTable( {
             "dom": 'flt',
-            data: data.values,
+            "data": data.values.slice(1),
+            "columns": [
+                { "width": "5%",
+                   "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("<a href=http://"+sData+" target='_blank'>link</a>");
+                    }
+                 },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "15%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "10%" }
+            ]
         });
     })
     .fail(function() {
@@ -129,22 +145,28 @@ $(document).ready(function() {
         <tr>
             <th>Link</th>
             <th>Lab</th>
-            <th>Signals</th>
+            <th>Data Type</th>
             <th>Area</th>
             <th>Species</th>
-            <th>Prep</th>
-            <th>Task/Stimuli</th>
+            <th># Animals</th>
+            <th># Neurons (per sess)</th>
+            <th># Neurons (total)</th>
+            <th># Trials</th>
+            <th># Conditions</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th>Link</th>
             <th>Lab</th>
-            <th>Signals</th>
+            <th>Data Type</th>
             <th>Area</th>
             <th>Species</th>
-            <th>Prep</th>
-            <th>Task/Stimuli</th>
+            <th># Animals</th>
+            <th># Neurons (per sess)</th>
+            <th># Neurons (total)</th>
+            <th># Trials</th>
+            <th># Conditions</th>
         </tr>
     </tfoot>
 </table>
