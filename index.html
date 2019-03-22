@@ -18,9 +18,6 @@
 
 <!-- Custom style -->
 <style>
-select {
-    font-size: medium;
-}
 .dataTables_filter {
    float: left !important;
 }
@@ -30,42 +27,51 @@ select {
 .dataTables_filter input {
     width: 500px;
 }
-#option_box {
-    padding-bottom: 20px;
+#notes {
+    padding-top: .5em;
+    padding-bottom: 1em;
+    background-color: rgb(245,245,245);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+    width: 80%;
+    border-radius: 25px;
+    border-style: dotted;
+    border-color: black;
+    border-width: 1px;
+}
+#notes h1 {
+    text-align: center;
+    font-size: 1.5em;
+    font-family: Helvetica;
+}
+#notes p {
+    text-align: left;
+    font-size: 1em;
+    font-family: Helvetica;
+    margin-left: 2em;
+    margin-right: 2em;
+    line-height: 1.3em;
+}
+#example{
+    font-family: Helvetica;
 }
 #example_filter{
-    font-size: x-large;
+    font-family: Helvetica;
+    font-size: large;
     padding-bottom: 25px;
 }
 #example_length{
-    font-size: x-large;
+    font-family: Helvetica;
+    font-size: large;
 }
 #tblSearchCust_filter input {
     background-color: red;
 }
 </style>
 
-<!-- Create the datatable -->
+
 <script>
-$.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var min = parseInt( $('#min').val(), 10 );
-        var max = parseInt( $('#max').val(), 10 );
-        var age = parseFloat( data[3] ) || 0;
-        var foo = document.getElementById("lastname").value;
-        console.log(foo)
-
-        if ( ( isNaN( min ) && isNaN( max ) ) ||
-             ( isNaN( min ) && age <= max ) ||
-             ( min <= age   && isNaN( max ) ) ||
-             ( min <= age   && age <= max ) )
-        {
-            return true;
-        }
-        return false;
-    }
-);
-
 $(document).ready(function() {
 
     // // Event listener to the two range filtering inputs to redraw on input
@@ -92,15 +98,15 @@ $(document).ready(function() {
                         $(nTd).html("<a href=http://"+sData+" target='_blank'>link</a>");
                     }
                  },
+                { "width": "9%" },
+                { "width": "10%" },
+                { "width": "13%" },
                 { "width": "10%" },
                 { "width": "10%" },
-                { "width": "15%" },
                 { "width": "10%" },
                 { "width": "10%" },
                 { "width": "10%" },
-                { "width": "10%" },
-                { "width": "10%" },
-                { "width": "10%" }
+                { "width": "12%" }
             ]
         });
     })
@@ -111,34 +117,24 @@ $(document).ready(function() {
         console.log( "complete" );
     });
 });
-
 </script>
+
 
 </head>
 
 
-<body>
+<body style="background-color: rgb(250,255,255);">
 
-<table border="0" cellspacing="5" cellpadding="5" id="option_box">
-    <tbody>
-    <tr>
-        <td>Minimum age:</td>
-        <td><input type="text" id="min" name="min"></td>
-        <td>Dropdown:</td>
-        <td>
-            <select id="lastname">
-            <option value="williamson">Williamson</option>
-            <option value="wagner">Wagner</option>
-            <option value="bruno">Bruno</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Maximum age:</td>
-        <td><input type="text" id="max" name="max"></td>
-    </tr>
-    </tbody>
-</table>
+<div id="notes">
+<h1>List of Open Access, High-Dimensional Neural Time Series</h1>
+<p>
+More and more neuroscience labs are deciding to share datasets online after initial publication.
+This list aims to collect open access datasets with a substantial number of simultaneously recorded neurons (10 or more).
+How to characterize these <i>high-dimensional</i> time series is still a very open question from a statistical modeling perspective.
+</p>
+
+<p style="color: red">Note: this page is a work in progress.</p>
+</div>
 
 <table id="example" class="display" style="width:100%">
     <thead>
@@ -149,10 +145,10 @@ $(document).ready(function() {
             <th>Area</th>
             <th>Species</th>
             <th># Animals</th>
-            <th># Neurons (per sess)</th>
-            <th># Neurons (total)</th>
-            <th># Trials</th>
-            <th># Conditions</th>
+            <th># Neurons<br>(per sess)</th>
+            <th># Neurons<br>(total)</th>
+            <th># Trials<br>(per condition)</th>
+            <th>Task</th>
         </tr>
     </thead>
     <tfoot>
@@ -163,10 +159,10 @@ $(document).ready(function() {
             <th>Area</th>
             <th>Species</th>
             <th># Animals</th>
-            <th># Neurons (per sess)</th>
-            <th># Neurons (total)</th>
-            <th># Trials</th>
-            <th># Conditions</th>
+            <th># Neurons<br>(per sess)</th>
+            <th># Neurons<br>(total)</th>
+            <th># Trials<br>(per condition)</th>
+            <th>Task</th>
         </tr>
     </tfoot>
 </table>
